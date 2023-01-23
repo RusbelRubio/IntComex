@@ -1,0 +1,239 @@
+USE [master]
+GO
+
+/****** Object:  Database [RedArbor]    Script Date: 23/01/2023 7:00:27 a. m. ******/
+CREATE DATABASE [RedArbor]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'RedArbor', FILENAME = N'E:\Program Files\Microsoft SQL Server\MSSQL15.SQLEXPRESS\MSSQL\DATA\RedArbor.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'RedArbor_log', FILENAME = N'E:\Program Files\Microsoft SQL Server\MSSQL15.SQLEXPRESS\MSSQL\DATA\RedArbor_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [RedArbor].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+
+ALTER DATABASE [RedArbor] SET ANSI_NULL_DEFAULT OFF 
+GO
+
+ALTER DATABASE [RedArbor] SET ANSI_NULLS OFF 
+GO
+
+ALTER DATABASE [RedArbor] SET ANSI_PADDING OFF 
+GO
+
+ALTER DATABASE [RedArbor] SET ANSI_WARNINGS OFF 
+GO
+
+ALTER DATABASE [RedArbor] SET ARITHABORT OFF 
+GO
+
+ALTER DATABASE [RedArbor] SET AUTO_CLOSE OFF 
+GO
+
+ALTER DATABASE [RedArbor] SET AUTO_SHRINK OFF 
+GO
+
+ALTER DATABASE [RedArbor] SET AUTO_UPDATE_STATISTICS ON 
+GO
+
+ALTER DATABASE [RedArbor] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+
+ALTER DATABASE [RedArbor] SET CURSOR_DEFAULT  GLOBAL 
+GO
+
+ALTER DATABASE [RedArbor] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+
+ALTER DATABASE [RedArbor] SET NUMERIC_ROUNDABORT OFF 
+GO
+
+ALTER DATABASE [RedArbor] SET QUOTED_IDENTIFIER OFF 
+GO
+
+ALTER DATABASE [RedArbor] SET RECURSIVE_TRIGGERS OFF 
+GO
+
+ALTER DATABASE [RedArbor] SET  DISABLE_BROKER 
+GO
+
+ALTER DATABASE [RedArbor] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+
+ALTER DATABASE [RedArbor] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+
+ALTER DATABASE [RedArbor] SET TRUSTWORTHY OFF 
+GO
+
+ALTER DATABASE [RedArbor] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+
+ALTER DATABASE [RedArbor] SET PARAMETERIZATION SIMPLE 
+GO
+
+ALTER DATABASE [RedArbor] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+
+ALTER DATABASE [RedArbor] SET HONOR_BROKER_PRIORITY OFF 
+GO
+
+ALTER DATABASE [RedArbor] SET RECOVERY SIMPLE 
+GO
+
+ALTER DATABASE [RedArbor] SET  MULTI_USER 
+GO
+
+ALTER DATABASE [RedArbor] SET PAGE_VERIFY CHECKSUM  
+GO
+
+ALTER DATABASE [RedArbor] SET DB_CHAINING OFF 
+GO
+
+ALTER DATABASE [RedArbor] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+
+ALTER DATABASE [RedArbor] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+
+ALTER DATABASE [RedArbor] SET DELAYED_DURABILITY = DISABLED 
+GO
+
+ALTER DATABASE [RedArbor] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+
+ALTER DATABASE [RedArbor] SET QUERY_STORE = OFF
+GO
+
+ALTER DATABASE [RedArbor] SET  READ_WRITE 
+GO
+
+
+USE [RedArbor]
+GO
+/****** Object:  Table [dbo].[customers]    Script Date: 23/01/2023 7:01:05 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[customers](
+	[id_customer] [int] IDENTITY(1,1) NOT NULL,
+	[user] [varchar](10) NOT NULL,
+	[name] [varchar](50) NOT NULL,
+	[title] [varchar](50) NOT NULL,
+	[cellphone] [varchar](10) NOT NULL,
+	[email] [varchar](100) NOT NULL,
+	[contact_type] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_customers] PRIMARY KEY CLUSTERED 
+(
+	[id_customer] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[departments]    Script Date: 23/01/2023 7:01:05 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[departments](
+	[dept_no] [char](4) NOT NULL,
+	[dept_name] [varchar](40) NOT NULL,
+ CONSTRAINT [PK_departments] PRIMARY KEY CLUSTERED 
+(
+	[dept_no] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[dept_emp]    Script Date: 23/01/2023 7:01:05 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[dept_emp](
+	[emp_no] [int] NOT NULL,
+	[dept_no] [char](4) NOT NULL,
+	[from_date] [date] NOT NULL,
+	[to_date] [date] NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Employee]    Script Date: 23/01/2023 7:01:05 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Employee](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[CompanyId] [int] NOT NULL,
+	[CreatedOn] [datetime] NOT NULL,
+	[DeleteOn] [datetime] NULL,
+	[Email] [varchar](120) NOT NULL,
+	[Fax] [varchar](20) NULL,
+	[Name] [varchar](120) NOT NULL,
+	[LastLogin] [datetime] NULL,
+	[PassWord] [varchar](25) NOT NULL,
+	[PortalId] [int] NOT NULL,
+	[RoleId] [int] NOT NULL,
+	[StatusId] [int] NULL,
+	[Telephone] [varchar](15) NULL,
+	[UpdateOn] [datetime] NULL,
+	[UserName] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_Employee] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[employees]    Script Date: 23/01/2023 7:01:05 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[employees](
+	[emp_no] [int] NOT NULL,
+	[birth_date] [date] NOT NULL,
+	[firts_name] [varchar](14) NOT NULL,
+	[last_name] [varchar](16) NULL,
+	[gender] [char](1) NULL,
+	[hire_date] [date] NULL,
+ CONSTRAINT [PK_employees] PRIMARY KEY CLUSTERED 
+(
+	[emp_no] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Salaries]    Script Date: 23/01/2023 7:01:05 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Salaries](
+	[emp_no] [int] NOT NULL,
+	[Salary] [int] NULL,
+	[from_date] [datetime] NULL,
+	[to_date] [datetime] NULL,
+ CONSTRAINT [PK_Salary] PRIMARY KEY CLUSTERED 
+(
+	[emp_no] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[dept_emp]  WITH CHECK ADD  CONSTRAINT [FK_dept_emp_departments] FOREIGN KEY([dept_no])
+REFERENCES [dbo].[departments] ([dept_no])
+GO
+ALTER TABLE [dbo].[dept_emp] CHECK CONSTRAINT [FK_dept_emp_departments]
+GO
+ALTER TABLE [dbo].[dept_emp]  WITH CHECK ADD  CONSTRAINT [FK_dept_emp_employees] FOREIGN KEY([emp_no])
+REFERENCES [dbo].[employees] ([emp_no])
+GO
+ALTER TABLE [dbo].[dept_emp] CHECK CONSTRAINT [FK_dept_emp_employees]
+GO
+ALTER TABLE [dbo].[Salaries]  WITH CHECK ADD  CONSTRAINT [FK_Salaries_employees] FOREIGN KEY([emp_no])
+REFERENCES [dbo].[employees] ([emp_no])
+GO
+ALTER TABLE [dbo].[Salaries] CHECK CONSTRAINT [FK_Salaries_employees]
+GO
